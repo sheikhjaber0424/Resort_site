@@ -20,12 +20,16 @@
     
 
     <div class="card shadow p-3 card text-center cardimg border-0 me-5" style="width: 17rem;display:inline-block;margin:40px 0px">
-        <img class="card-img-top " src="{{ asset('uploads/resorts/'.$item['gallery']) }}" alt="Card image cap" height="250">   
+        <a href="/detail/{{$item['id']}}" style="color: black;text-decoration:none">
+            <img class="card-img-top " src="{{ asset('uploads/resorts/'.$item['gallery']) }}" alt="Card image cap" height="250">   
+        </a>
       
+        <a href="/detail/{{$item['id']}}" style="color: black;text-decoration:none">
         <div class="card-body">
             <h5>{{ $item['name'] }}</h5>
             <strong class="card-text ">{{ $item['rent_per_day'] }}</strong>           
         </div>
+    </a>
    
         </div>
 

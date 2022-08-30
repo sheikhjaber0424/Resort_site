@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Resort;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
@@ -17,6 +18,11 @@ class ResortController extends Controller
         return view('resorts',['resorts'=>$data]);
     }
 
+    public function detail($id)
+    {
+        $detail = Resort::find($id);
+        return view('detail',['resort'=>$detail]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -34,6 +40,32 @@ class ResortController extends Controller
         $data = Resort::all();
         return view(' resortData',['resorts'=>$data]);
         
+    }
+
+
+
+    public function booking($id,Request $request)
+    {
+        $resort = Resort::find($id);
+        return view('booking',['resort'=>$resort]);
+        
+    }
+
+
+    public function save(Request $request){
+        
+        $book = new Booking;
+        $book->user_id=$request->session()->get('user')['id'];
+        $book->rent_id=$request->rent_id;
+        $book->name = $request->name;
+        $book->occupation = $request->occupation;
+        $book->address = $request->address;
+        $book->email = $request->email;
+        $book->phone = $request->phone;
+        $book->status = $request->status;
+        $book->members = $request->members;
+        $book->save();    
+    return redirect('/');
     }
 
 

@@ -21,9 +21,13 @@ use App\Http\Controllers\ResortController;
 
 Route::get('/',[ResortController::class,'index']);
 
+Route::get('/detail/{id}',[ResortController::class,'detail']);
+
 Auth::routes();
 
 Route::get('/admin/addResort',[ResortController::class,'addResort']);
+Route::get('/booking/{id}',[ResortController::class,'booking']);
+
 
 Route::get('/admin/resortData',[ResortController::class,'resortData']);
 
