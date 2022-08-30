@@ -9,7 +9,7 @@
 
     @if(Auth::check())
         <div class="text-center">
-            <a href="/create"><button class="btn btn-success ">Add resort</button></a>
+            <a href="/admin/addResort"><button class="btn btn-success ">Add resort</button></a>
             {{-- <a href="resorts/create"><button class="btn btn-secondary ">Add resort</button></a> --}}
         
         </div>

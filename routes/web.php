@@ -23,17 +23,19 @@ Route::get('/',[ResortController::class,'index']);
 
 Auth::routes();
 
-Route::get('/create',[ResortController::class,'create']);
+Route::get('/admin/addResort',[ResortController::class,'addResort']);
+
+Route::get('/admin/resortData',[ResortController::class,'resortData']);
 
 Route::post('/resorts',[ResortController::class,'store']);
 
-Route::get('/edit/{id}',[ResortController::class,'edit']);
+Route::get('/admin/edit/{id}',[ResortController::class,'edit']);
 
 Route::put('/update/{id}',[ResortController::class,'update']);
 
 Route::delete('/delete/{id}',[ResortController::class,'destroy']);
 
-Route::get('/admin',[ResortController::class,'admin']);
+Route::get('/admin',[ResortController::class,'resortData']);
 
 
 

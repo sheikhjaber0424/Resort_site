@@ -20,12 +20,22 @@ class ResortController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function addResort()
     {
-        return view('createView');
+
+        return view('addResort');
         
     }
 
+    public function  resortData()
+    {
+        $data = Resort::all();
+        return view(' resortData',['resorts'=>$data]);
+        
+    }
+
+
+   
     /**
      * Store a newly created resource in storage.
      *
