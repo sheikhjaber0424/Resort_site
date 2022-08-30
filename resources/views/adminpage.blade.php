@@ -13,7 +13,10 @@
 
 
             <button type="button" class="btn btn-success btn-lg my-2 mx-2">Booking List</button>
-            <button type="button" class="btn btn-danger btn-lg my-2 mx-2">Create Admin</button>
+            <button type="button" class="btn btn-danger btn-lg my-2 mx-2">
+                <a href="/createAdmin" class="text-white text-decoration-none">  Create Admin</a>
+               
+            </button>
         </div>   
     </div>
 </div>        

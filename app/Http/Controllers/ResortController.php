@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Resort;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class ResortController extends Controller
 {
@@ -119,5 +121,15 @@ class ResortController extends Controller
     public function admin()
     {
         return view('adminpage');
+    }
+
+    function createAdmin(Request $request){
+        $admin = new User;
+        $admin->name = $request->name;
+        $admin->email = $request->email;
+        $admin->password = Hash::make($request->password);
+        $admin->save();
+        return redirect('/');
+        
     }
 }

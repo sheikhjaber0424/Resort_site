@@ -37,7 +37,13 @@
     <td>{{ $item['rent_per_day'] }}</td>
     <td>{{ $item['description'] }}</td>
     <td><img class="card-img-top " src="{{ asset('uploads/resorts/'.$item['gallery']) }}" alt="Card image cap" height="80"> </td>
-   
+    <td> <a href="edit/{{ $item['id'] }} "><button class="btn btn-primary mt-4"><i class="bi bi-pencil-square"></i></button></a></td>
+    <td><form class="d-inline" action="/delete/{{ $item['id'] }}" method="POST">
+        @csrf
+        @method('DELETE')
+
+        <a href="/delete/{{ $item['id'] }}"><button class="btn btn-danger mt-4"><i class="bi bi-trash-fill"></i></button></a>
+    </form></td>
     </tr>
     
 

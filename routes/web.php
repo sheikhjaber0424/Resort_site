@@ -37,6 +37,10 @@ Route::delete('/delete/{id}',[ResortController::class,'destroy']);
 
 Route::get('/admin',[ResortController::class,'resortData']);
 
+Route::post('/createAdmin',[ResortController::class,'createAdmin']);
+Route::get('/createAdmin', function () {  
+    return view('createAdmin');
+});
 
 
 Auth::routes();
