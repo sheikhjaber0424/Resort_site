@@ -42,6 +42,7 @@ class ResortController extends Controller
         return view(' resortData',['resorts'=>$data]);
         
     }
+   
 
 
 
@@ -49,12 +50,7 @@ class ResortController extends Controller
 
 
    
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(Request $request)
     {
 
@@ -190,6 +186,12 @@ class ResortController extends Controller
     
 }
 
+public function  bookingList()
+{
+    $data = Booking::all();
+    return view(' bookingList',['bookings'=>$data]);
+    
+}
     
     
 

@@ -26,12 +26,17 @@ Route::get('/detail/{id}',[ResortController::class,'detail']);
 Auth::routes();
 
 Route::get('/admin/addResort',[ResortController::class,'addResort']);
+
 Route::get('/booking/{id}',[ResortController::class,'booking']);
 
 
 Route::get('/admin/resortData',[ResortController::class,'resortData']);
 
+Route::get('/admin/bookingList',[ResortController::class,'bookingList']);
+
 Route::post('/resorts',[ResortController::class,'store']);
+
+Route::get('/admin/resortData',[ResortController::class,'resortData']);
 
 Route::get('/admin/edit/{id}',[ResortController::class,'edit']);
 
