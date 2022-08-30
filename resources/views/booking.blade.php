@@ -5,6 +5,13 @@
       <div class="row justify-content-center">
         
         <div class="col-lg-6">
+          @if (session('status1'))
+          <h6 class="alert alert-danger">{{ session('status1') }}</h6>
+      @endif
+      @if (session('status2'))
+      <h6 class="alert alert-success">{{ session('status2') }}</h6>
+  @endif
+
     <form action='/save' method="POST">
         @csrf
         <div class="display-4 text-center mb-5">Booking Form</div>
@@ -39,6 +46,19 @@
             <input type="text" name="members" id="form6Example3" class="form-control" required/>
             <label class="form-label" for="form6Example3"><i class="bi bi-people-fill"></i> Total members</label>
           </div>
+
+
+          <div class="form-outline mb-4">     
+            <input id="startDate" name="start_date" class="form-control" type="date" />
+            <label for="startDate"><i class="bi bi-calendar3"></i> Start date</label>
+          </div>
+
+          <div class="form-outline mb-4">        
+            <input id="startDate" name="end_date" class="form-control" type="date" />
+            <label for="startDate"><i class="bi bi-calendar3"></i> End date</label>
+          </div>
+
+     
         <!-- Message input -->
      
          

@@ -46,6 +46,7 @@ Route::get('/createAdmin', function () {
     return view('createAdmin');
 });
 
+Route::post('/save',[ResortController::class,'save']);
 
 Auth::routes();
 

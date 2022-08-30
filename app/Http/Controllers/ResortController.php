@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Resort;
 use App\Models\Booking;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
@@ -44,29 +45,7 @@ class ResortController extends Controller
 
 
 
-    public function booking($id,Request $request)
-    {
-        $resort = Resort::find($id);
-        return view('booking',['resort'=>$resort]);
-        
-    }
-
-
-    public function save(Request $request){
-        
-        $book = new Booking;
-        $book->user_id=$request->session()->get('user')['id'];
-        $book->rent_id=$request->rent_id;
-        $book->name = $request->name;
-        $book->occupation = $request->occupation;
-        $book->address = $request->address;
-        $book->email = $request->email;
-        $book->phone = $request->phone;
-        $book->status = $request->status;
-        $book->members = $request->members;
-        $book->save();    
-    return redirect('/');
-    }
+   
 
 
    
@@ -103,6 +82,7 @@ class ResortController extends Controller
         return redirect()->back()->with('status','resort Added Successfully');
     }
 
+    
     public function edit($id)
     {
         $resort = Resort::find($id);
@@ -164,4 +144,53 @@ class ResortController extends Controller
         return redirect('/');
         
     }
+
+    public function booking($id,Request $request)
+    {
+        $resort = Resort::find($id);
+        return view('booking',['resort'=>$resort]);
+        
+    }
+
+
+    public function save(Request $request){
+        $data=DB::table('bookings')
+                    ->where('resort_id','=',$request->resort_id)
+                    ->get();
+
+        // dd($data);
+        // $startDate1=$request->start_date;
+        // $endDate1 = $request->end_date;
+    
+        foreach($data as $item)
+        {
+            if($request->start_date >= $item->start_date  &&  $request->start_date <= $item->end_date)
+            {
+                return redirect()->back()->with('status1','Resort can not be booked booked');
+            }
+            else if($request->end_date >= $item->start_date && $request->end_date <= $item->end_date )
+            {
+                return redirect()->back()->with('status1','Resort can not be booked booked');
+            }
+        
+        }
+
+        $book = new Booking;
+        
+        $book->resort_id=$request->resort_id;
+        $book->name = $request->name;
+        $book->email = $request->email;
+        $book->phone = $request->phone;
+        $book->members = $request->members;
+        $book->start_date = $request->start_date;
+        $book->end_date = $request->end_date;
+
+        $book->save();    
+        return redirect()->back()->with('status2','Resort has been successfully booked');
+    
+}
+
+    
+    
+
 }
