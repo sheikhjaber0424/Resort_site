@@ -34,6 +34,7 @@ Route::get('/admin/resortData',[ResortController::class,'resortData']);
 
 Route::get('/admin/bookingList',[ResortController::class,'bookingList']);
 
+
 Route::post('/resorts',[ResortController::class,'store']);
 
 Route::get('/admin/resortData',[ResortController::class,'resortData']);
@@ -52,6 +53,9 @@ Route::get('/createAdmin', function () {
 });
 
 Route::post('/save',[ResortController::class,'save']);
+
+
+Route::get('/email',[ResortController::class,'email']);
 
 Auth::routes();
 

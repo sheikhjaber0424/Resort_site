@@ -1,0 +1,1 @@
+<h1>BDResorts booking successfully done! </h1>

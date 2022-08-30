@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class ResortController extends Controller
 {
@@ -155,18 +156,17 @@ class ResortController extends Controller
                     ->get();
 
         // dd($data);
-        // $startDate1=$request->start_date;
-        // $endDate1 = $request->end_date;
+      
     
         foreach($data as $item)
         {
             if($request->start_date >= $item->start_date  &&  $request->start_date <= $item->end_date)
             {
-                return redirect()->back()->with('status1','Resort can not be booked booked');
+                return redirect()->back()->with('status1','Resort has already been booked for the selected days!');
             }
             else if($request->end_date >= $item->start_date && $request->end_date <= $item->end_date )
             {
-                return redirect()->back()->with('status1','Resort can not be booked booked');
+                return redirect()->back()->with('status1','Resort has already been booked for the selected days!');
             }
         
         }
@@ -182,6 +182,21 @@ class ResortController extends Controller
         $book->end_date = $request->end_date;
 
         $book->save();    
+
+
+        $adminMail =User::inRandomOrder()->first();
+
+        $data =['name'=>'abc'] ;
+        $user = $request->email;
+        $admin = $adminMail->email;
+        Mail::send('mailView', $data, function ($message) use ($user,$admin) {
+            $message->to($user);
+            $message->to($admin);
+            $message->subject('Booking Confirmation!');
+            
+        });
+
+
         return redirect()->back()->with('status2','Resort has been successfully booked');
     
 }
@@ -193,6 +208,6 @@ public function  bookingList()
     
 }
     
-    
+
 
 }
