@@ -7,13 +7,13 @@
         
         <div class="col-md-12">
         <h4 class="display-4 text-center my-5">Booking List</h4>
-        
+
         <div class="container d-flex justify-content-center my-4"> 
             <form action="/admin/searchBooking" class="d-flex">
             <input style="width:300px " class="form-control me-2" type="text" name="query" placeholder="Search" aria-label="Search">
             <button style="width:100px" class="btn btn-outline-dark rounded-pill me-2" type="submit">Search</button>
           </form> 
-        </div> 
+        </div>    
         <div class="table-responsive">
 
                 
@@ -57,9 +57,9 @@
         
 </table>
 
-<div class="d-flex justify-content-center my-4">
+{{-- <div class="d-flex justify-content-center my-4">
     {{  $bookings->links()}}
-</div>
+</div> --}}
                 
             </div>
             

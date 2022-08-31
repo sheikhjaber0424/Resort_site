@@ -55,8 +55,9 @@ Route::get('/createAdmin', function () {
 Route::post('/save',[ResortController::class,'save']);
 
 
-Route::get('/email',[ResortController::class,'email']);
 
+Route::get('/admin/searchData',[ResortController::class,'searchData']);
+Route::get('/admin/searchBooking',[ResortController::class,'searchBooking']);
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

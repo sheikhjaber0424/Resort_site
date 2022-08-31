@@ -60,9 +60,9 @@
         
 </table>
 
-<div class="d-flex justify-content-center my-4">
+{{-- <div class="d-flex justify-content-center my-4">
     {{  $resorts->links()}}
-</div>
+</div> --}}
                 
             </div>
             

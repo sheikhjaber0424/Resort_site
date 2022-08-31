@@ -16,7 +16,7 @@ class ResortController extends Controller
    
     public function index()
     {
-        $data = Resort::all();
+        $data = Resort::paginate(8);
         return view('resorts',['resorts'=>$data]);
     }
 
@@ -39,7 +39,7 @@ class ResortController extends Controller
 
     public function  resortData()
     {
-        $data = Resort::all();
+        $data = Resort::paginate(5);
         return view(' resortData',['resorts'=>$data]);
         
     }
@@ -49,9 +49,6 @@ class ResortController extends Controller
 
    
 
-
-   
-   
     public function store(Request $request)
     {
 
@@ -76,10 +73,12 @@ class ResortController extends Controller
             $resort->gallery = $filename;
         } 
         $resort->save();
-        return redirect()->back()->with('status','resort Added Successfully');
+        return redirect()->back()->with('status','Resort Added Successfully');
     }
 
     
+
+
     public function edit($id)
     {
         $resort = Resort::find($id);
@@ -87,6 +86,8 @@ class ResortController extends Controller
     }
  
   
+
+
     public function update(Request $request, $id)
     {
         $resort = Resort::find($id);
@@ -108,7 +109,7 @@ class ResortController extends Controller
             $resort->gallery = $filename;
         } 
         $resort->update();
-        return redirect()->back()->with('status','resort updated Successfully');
+        return redirect()->back()->with('status','Resort updated Successfully');
     }
 
   
@@ -124,8 +125,13 @@ class ResortController extends Controller
        }
        $resort->delete();
 
-       return redirect()->back()->with('status','resort deleted Successfully');
+       return redirect()->back()->with('status','Resort deleted Successfully');
     }
+
+
+
+
+
 
     public function admin()
     {
@@ -148,6 +154,9 @@ class ResortController extends Controller
         return view('booking',['resort'=>$resort]);
         
     }
+
+
+
 
 
     public function save(Request $request){
@@ -201,13 +210,42 @@ class ResortController extends Controller
     
 }
 
+
+
+
 public function  bookingList()
 {
-    $data = Booking::all();
+    $data = Booking::paginate(5);
     return view(' bookingList',['bookings'=>$data]);
     
 }
+
+public function searchData(Request $request)
+{
     
+     $data= Resort::where('name', 'like','%'.$request->input('query').'%')
+                        ->orWhere('rent_per_day', 'like','%'.$request->input('query').'%')
+                        ->orWhere('description', 'like','%'.$request->input('query').'%')
+                        ->get();
+                        
+    //  dd($data);
+   return view('searchData',['resorts'=>$data]);
+}
+public function searchBooking(Request $request)
+{
+    
+     $data= Booking::where('resort_id', 'like','%'.$request->input('query').'%')
+                        ->orWhere('phone', 'like','%'.$request->input('query').'%')
+                        ->orWhere('email', 'like','%'.$request->input('query').'%')
+                        ->orWhere('members', 'like','%'.$request->input('query').'%')
+                        ->orWhere('start_date', 'like','%'.$request->input('query').'%')
+                        ->orWhere('end_date', 'like','%'.$request->input('query').'%')
+                        ->get();
+                        
+    //  dd($data);
+   return view('searchBooking',['bookings'=>$data]);
+}
+
 
 
 }
