@@ -18,11 +18,11 @@
       </div>
       <div class="form-group mb-3">
         <label for="">Per day rent</label>
-        <input type="text" name="rent_per_day" class="form-control" required>
+        <input type="text" name="rent_per_day" value="{{ $resort['rent_per_day'] }}" class="form-control" required>
     </div>
       <div class="form-group mb-3">
         <label for="">Description</label>
-        <input type="text" name="description" class="form-control" required>
+        <input type="text" name="description" value="{{ $resort['description'] }}" class="form-control" required>
     </div>
       
       <div class="form-group mb-3 ">

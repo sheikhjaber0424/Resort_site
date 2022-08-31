@@ -27,10 +27,14 @@
             {{$resort['description']}}
           </p>
           <hr class="my-4" />
+
+          @guest
+            
+       
           <div class="text-center">
             <a href="/booking/{{ $resort['id'] }}"><button style="width: 150px;margin-top:20px" type="button" class="btn btn-lg btn-primary">Book</button></a>
           </div>
-          
+          @endguest
 
         </div>
       </div>

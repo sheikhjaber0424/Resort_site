@@ -7,10 +7,13 @@
         <div class="col-lg-6">
           @if (session('status1'))
           <h6 class="alert alert-danger">{{ session('status1') }}</h6>
-      @endif
-      @if (session('status2'))
-      <h6 class="alert alert-success">{{ session('status2') }}</h6>
-  @endif
+          @endif
+          @if (session('status2'))
+          <h6 class="alert alert-success">{{ session('status2') }}</h6>
+          @endif
+          @if (session('status3'))
+          <h6 class="alert alert-warning">{{ session('status3') }}</h6>
+          @endif
 
     <form action='/save' method="POST">
         @csrf

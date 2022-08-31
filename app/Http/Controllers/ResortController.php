@@ -168,14 +168,18 @@ class ResortController extends Controller
       
     
         foreach($data as $item)
-        {
+        {   
             if($request->start_date >= $item->start_date  &&  $request->start_date <= $item->end_date)
             {
-                return redirect()->back()->with('status1','Resort has already been booked for the selected days!');
+                return redirect()->back()->with('status1','Resort is not available for the desired dates!');
             }
-            else if($request->end_date >= $item->start_date && $request->end_date <= $item->end_date )
+            if($request->end_date >= $item->start_date && $request->end_date <= $item->end_date )
             {
-                return redirect()->back()->with('status1','Resort has already been booked for the selected days!');
+                return redirect()->back()->with('status1','Resort is not available for the desired dates!');
+            }
+            if($request->start_date >= $request->end_date)
+            {
+                return redirect()->back()->with('status3','Please enter valid dates!');
             }
         
         }
