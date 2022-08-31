@@ -22,6 +22,9 @@ class ResortController extends Controller
     }
 
     
+
+
+
     public function detail($id)
     {
         $detail = Resort::find($id);
@@ -29,12 +32,19 @@ class ResortController extends Controller
     }
    
 
+
+
+
     public function addResort()
     {
 
         return view('addResort');
         
     }
+
+
+
+
 
     public function  resortData()
     {
@@ -46,17 +56,11 @@ class ResortController extends Controller
 
 
 
-   
 
     public function store(Request $request)
     {
 
-        // $request->validate([
-        //     'name'=>'required',
-        //     'rent_per_day' => 'required',
-        //     'gallery'=> 'required'
-        // ]);
-
+   
 
         $resort = new Resort;
         $resort->name = $request->input('name');
@@ -78,6 +82,8 @@ class ResortController extends Controller
     
 
 
+
+
     public function edit($id)
     {
         $resort = Resort::find($id);
@@ -85,6 +91,9 @@ class ResortController extends Controller
     }
  
   
+
+
+
 
 
     public function update(Request $request, $id)
@@ -114,6 +123,9 @@ class ResortController extends Controller
   
 
 
+
+
+
     public function destroy($id)
     {
        $resort = Resort::find($id);
@@ -126,6 +138,8 @@ class ResortController extends Controller
 
        return redirect()->back()->with('status','Resort deleted Successfully');
     }
+
+
 
 
 
@@ -146,6 +160,10 @@ class ResortController extends Controller
         return redirect('/');
         
     }
+
+
+
+
 
     public function booking($id,Request $request)
     {
@@ -216,12 +234,19 @@ class ResortController extends Controller
 
 
 
+
+
 public function  bookingList()
 {
     $data = Booking::paginate(5);
     return view(' bookingList',['bookings'=>$data]);
     
 }
+
+
+
+
+
 
 public function searchData(Request $request)
 {
@@ -234,11 +259,17 @@ public function searchData(Request $request)
     //  dd($data);
    return view('searchData',['resorts'=>$data]);
 }
+
+
+
+
+
+
+
 public function searchBooking(Request $request)
 {
     
      $data= Booking::where('resort_id', 'like','%'.$request->input('query').'%')
-                        ->orWhere('phone', 'like','%'.$request->input('query').'%')
                         ->orWhere('email', 'like','%'.$request->input('query').'%')
                         ->orWhere('members', 'like','%'.$request->input('query').'%')
                         ->orWhere('start_date', 'like','%'.$request->input('query').'%')
