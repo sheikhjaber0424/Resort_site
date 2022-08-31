@@ -14,14 +14,14 @@ use Illuminate\Support\Facades\Mail;
 class ResortController extends Controller
 {
    
-    //Show resort to guest
+   
     public function index()
     {
         $data = Resort::paginate(8);
         return view('resorts',['resorts'=>$data]);
     }
 
-    // Resort detail show
+    
     public function detail($id)
     {
         $detail = Resort::find($id);
@@ -29,7 +29,6 @@ class ResortController extends Controller
     }
    
 
-    // Add new Resort
     public function addResort()
     {
 
@@ -37,8 +36,6 @@ class ResortController extends Controller
         
     }
 
-    
-    // Show Resort data in admin panel
     public function  resortData()
     {
         $data = Resort::paginate(5);
@@ -50,9 +47,16 @@ class ResortController extends Controller
 
 
    
-    //Adding new resort by admin
+
     public function store(Request $request)
     {
+
+        // $request->validate([
+        //     'name'=>'required',
+        //     'rent_per_day' => 'required',
+        //     'gallery'=> 'required'
+        // ]);
+
 
         $resort = new Resort;
         $resort->name = $request->input('name');
@@ -73,7 +77,7 @@ class ResortController extends Controller
 
     
 
-    // To edit resort data by admin
+
     public function edit($id)
     {
         $resort = Resort::find($id);
@@ -82,7 +86,7 @@ class ResortController extends Controller
  
   
 
-     // To update resort data by admin
+
     public function update(Request $request, $id)
     {
         $resort = Resort::find($id);
@@ -110,7 +114,6 @@ class ResortController extends Controller
   
 
 
-     // To delete resort by admin
     public function destroy($id)
     {
        $resort = Resort::find($id);
@@ -128,16 +131,13 @@ class ResortController extends Controller
 
 
 
-    //Admin Page
+
     public function admin()
     {
         return view('adminpage');
     }
 
-
-
-    //Creating new admin
-    public function createAdmin(Request $request){
+    function createAdmin(Request $request){
         $admin = new User;
         $admin->name = $request->name;
         $admin->email = $request->email;
@@ -147,9 +147,6 @@ class ResortController extends Controller
         
     }
 
-
-    
-    // Booking page
     public function booking($id,Request $request)
     {
         $resort = Resort::find($id);
@@ -160,8 +157,8 @@ class ResortController extends Controller
 
 
 
-    // To save booking info of customer
-        public function save(Request $request){
+
+    public function save(Request $request){
         $data=DB::table('bookings')
                     ->where('resort_id','=',$request->resort_id)
                     ->get();
@@ -214,54 +211,43 @@ class ResortController extends Controller
 
         return redirect()->back()->with('status2','Resort has been successfully booked');
     
-        }
+}
 
 
 
 
-        //To show booking list in admin panel
-        public function  bookingList()
-        {
-            $data = Booking::paginate(5);
-            return view(' bookingList',['bookings'=>$data]);
-            
-        }
+public function  bookingList()
+{
+    $data = Booking::paginate(5);
+    return view(' bookingList',['bookings'=>$data]);
+    
+}
 
-
-
-
-        //Search resort data  in admin panel
-        public function searchData(Request $request)
-        {
-            
-            $data= Resort::where('name', 'like','%'.$request->input('query').'%')
-                                ->orWhere('rent_per_day', 'like','%'.$request->input('query').'%')
-                                ->orWhere('description', 'like','%'.$request->input('query').'%')
-                                ->get();
-                                
-            //  dd($data);
-        return view('searchData',['resorts'=>$data]);
-        }
-
-
-
-
-
-        //Search booking data  in admin panel
-        public function searchBooking(Request $request)
-        {
-            
-            $data= Booking::where('resort_id', 'like','%'.$request->input('query').'%')
-                                ->orWhere('phone', 'like','%'.$request->input('query').'%')
-                                ->orWhere('email', 'like','%'.$request->input('query').'%')
-                                ->orWhere('members', 'like','%'.$request->input('query').'%')
-                                ->orWhere('start_date', 'like','%'.$request->input('query').'%')
-                                ->orWhere('end_date', 'like','%'.$request->input('query').'%')
-                                ->get();
-                                
-            //  dd($data);
-        return view('searchBooking',['bookings'=>$data]);
-        }
+public function searchData(Request $request)
+{
+    
+     $data= Resort::where('name', 'like','%'.$request->input('query').'%')
+                        ->orWhere('rent_per_day', 'like','%'.$request->input('query').'%')
+                        ->orWhere('description', 'like','%'.$request->input('query').'%')
+                        ->get();
+                        
+    //  dd($data);
+   return view('searchData',['resorts'=>$data]);
+}
+public function searchBooking(Request $request)
+{
+    
+     $data= Booking::where('resort_id', 'like','%'.$request->input('query').'%')
+                        ->orWhere('phone', 'like','%'.$request->input('query').'%')
+                        ->orWhere('email', 'like','%'.$request->input('query').'%')
+                        ->orWhere('members', 'like','%'.$request->input('query').'%')
+                        ->orWhere('start_date', 'like','%'.$request->input('query').'%')
+                        ->orWhere('end_date', 'like','%'.$request->input('query').'%')
+                        ->get();
+                        
+    //  dd($data);
+   return view('searchBooking',['bookings'=>$data]);
+}
 
 
 
