@@ -52,21 +52,17 @@
 
 
           <div class="form-outline mb-4">     
-            <input id="startDate" name="start_date" class="form-control" type="date" />
+            <input id="startDate" name="start_date" class="form-control" type="date" required/>
             <label for="startDate"><i class="bi bi-calendar3"></i> Start date</label>
           </div>
 
           <div class="form-outline mb-4">        
-            <input id="startDate" name="end_date" class="form-control" type="date" />
+            <input id="startDate" name="end_date" class="form-control" type="date" required/>
             <label for="startDate"><i class="bi bi-calendar3"></i> End date</label>
           </div>
 
      
-        <!-- Message input -->
-     
-         
-        <!-- Checkbox -->
-        
+    
         <!-- Submit button -->
         <button type="submit" class="btn btn-primary btn-block mb-4">Confirm booking</button>
       </form>
