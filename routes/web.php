@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResortController;
@@ -19,42 +20,50 @@ use App\Http\Controllers\ResortController;
 //     return view('welcome');
 // });
 
-Route::get('/',[ResortController::class,'index']);
+
 
 //To show Resort detail
-Route::get('/detail/{id}',[ResortController::class,'detail']);
+
 
 //Admin Add Resort
-Route::get('/admin/addResort',[ResortController::class,'addResort']);
+// Route::get('/admin/addResort',[ResortController::class,'addResort']);
 
 // Booking page
-Route::get('/booking/{id}',[ResortController::class,'booking']);
+
 
 // Show all resort data to admin
-Route::get('/admin/resortData',[ResortController::class,'resortData']);
+// Route::get('/admin/resortData',[ResortController::class,'resortData']);
+
 
 // Show all booking data to admin
-Route::get('/admin/bookingList',[ResortController::class,'bookingList']);
+
 
 // to store resort data
-Route::post('/resorts',[ResortController::class,'store']);
+// Route::post('/resorts',[ResortController::class,'store']);
 
 //To Edit resort in admin panel
-Route::get('/admin/edit/{id}',[ResortController::class,'edit']);
+// Route::get('/admin/edit/{id}',[ResortController::class,'edit']);
 
 // Edit resort in admin panel
-Route::put('/update/{id}',[ResortController::class,'update']);
+// Route::put('/update/{id}',[ResortController::class,'update']);
 
 // To delete resort in admin panel
-Route::delete('/delete/{id}',[ResortController::class,'destroy']);
+// Route::delete('/delete/{id}',[ResortController::class,'destroy']);
 
-//admin page
-Route::get('/admin',[ResortController::class,'resortData']);
+
+
+Route::get('/',[ResortController::class,'index']);
+
+Route::get('/detail/{id}',[ResortController::class,'detail']);
+
+Route::get('/booking/{id}',[ResortController::class,'booking']);
+
+Route::get('/admin/bookingList',[ResortController::class,'bookingList']);
 
 // To create new admin in admin panel
 Route::post('/createAdmin',[ResortController::class,'createAdmin']);
 Route::get('/createAdmin', function () {  
-    return view('createAdmin');
+    return view('admin.create_admin');
 });
 
 // To save the booking info
@@ -64,6 +73,9 @@ Route::post('/save',[ResortController::class,'save']);
 // for search in admin panel
 Route::get('/admin/searchData',[ResortController::class,'searchData']);
 Route::get('/admin/searchBooking',[ResortController::class,'searchBooking']);
+
+Route::resource('resorts', AdminController::class);
+
 Auth::routes();
 
 

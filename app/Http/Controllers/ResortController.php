@@ -18,17 +18,17 @@ class ResortController extends Controller
     public function index()
     {
         $data = Resort::paginate(8);
-        return view('resorts',['resorts'=>$data]);
+        return view('resorts.index',['resorts'=>$data]);
     }
 
-    
+
 
 
 
     public function detail($id)
     {
         $detail = Resort::find($id);
-        return view('detail',['resort'=>$detail]);
+        return view('resorts.detail',['resort'=>$detail]);
     }
    
 
@@ -38,7 +38,7 @@ class ResortController extends Controller
     public function addResort()
     {
 
-        return view('addResort');
+        return view('admin.resort_add');
         
     }
 
@@ -49,7 +49,7 @@ class ResortController extends Controller
     public function  resortData()
     {
         $data = Resort::paginate(5);
-        return view(' resortData',['resorts'=>$data]);
+        return view(' admin.resorts_data_table',['resorts'=>$data]);
         
     }
    
@@ -60,6 +60,12 @@ class ResortController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+            'name' => ['required', 'string', 'max:25'],
+            'rent_per_day' => ['required', 'integer'],
+            'description' => ['required', 'max:255'],
+            'gallery' => ['required', 'image']
+        ]);
    
 
         $resort = new Resort;
@@ -87,7 +93,7 @@ class ResortController extends Controller
     public function edit($id)
     {
         $resort = Resort::find($id);
-        return view('edit',['resort'=>$resort]);
+        return view('admin.resort_edit',['resort'=>$resort]);
     }
  
   
@@ -98,6 +104,14 @@ class ResortController extends Controller
 
     public function update(Request $request, $id)
     {
+        
+        $request->validate([
+            'name' => ['required', 'string', 'max:25'],
+            'rent_per_day' => ['required', 'integer'],
+            'description' => ['required', 'max:255'],
+            'gallery' => ['required', 'image']
+        ]);
+
         $resort = Resort::find($id);
         $resort->name = $request->input('name');
         $resort->rent_per_day = $request->input('rent_per_day');
@@ -151,7 +165,16 @@ class ResortController extends Controller
         return view('adminpage');
     }
 
+
+
     function createAdmin(Request $request){
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:25'],
+            'email' => ['required', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'min:5', 'max:16'],
+        ]);
+
         $admin = new User;
         $admin->name = $request->name;
         $admin->email = $request->email;
@@ -168,7 +191,7 @@ class ResortController extends Controller
     public function booking($id,Request $request)
     {
         $resort = Resort::find($id);
-        return view('booking',['resort'=>$resort]);
+        return view('resorts.booking',['resort'=>$resort]);
         
     }
 
@@ -177,12 +200,22 @@ class ResortController extends Controller
 
 
     public function save(Request $request){
+
+       $valid =  $request->validate([
+            'name' => ['required', 'string', 'max:25'],
+            'email' => ['required', 'email', 'max:255'],
+            'phone' => ['required',  'max:11'],
+            'members' => ['required', 'integer'],
+            'start_date' => ['required', 'date'],
+            'end_date' => ['required', 'date'],
+        ]);
+
+
         $data=DB::table('bookings')
                     ->where('resort_id','=',$request->resort_id)
                     ->get();
 
-        // dd($data);
-      
+        // dd($data);     
     
         foreach($data as $item)
         {   
@@ -200,6 +233,9 @@ class ResortController extends Controller
             }
         
         }
+
+       
+
 
         $book = new Booking;
         
@@ -239,7 +275,7 @@ class ResortController extends Controller
 public function  bookingList()
 {
     $data = Booking::paginate(5);
-    return view(' bookingList',['bookings'=>$data]);
+    return view(' admin.resort_booking_list',['bookings'=>$data]);
     
 }
 
@@ -257,7 +293,7 @@ public function searchData(Request $request)
                         ->get();
                         
     //  dd($data);
-   return view('searchData',['resorts'=>$data]);
+   return view('admin.search_resort',['resorts'=>$data]);
 }
 
 
@@ -277,7 +313,7 @@ public function searchBooking(Request $request)
                         ->get();
                         
     //  dd($data);
-   return view('searchBooking',['bookings'=>$data]);
+   return view('admin.search_booking',['bookings'=>$data]);
 }
 
 

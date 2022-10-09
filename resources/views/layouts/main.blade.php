@@ -24,7 +24,7 @@
 <body>
     @include('header')
     @if(Auth::check())
-    @include('adminpage')
+    @include('partials.admin_page')
     @endif
     @yield('content')
 </body>

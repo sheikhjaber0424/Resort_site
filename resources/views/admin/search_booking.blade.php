@@ -1,4 +1,4 @@
-@extends('layout') 
+@extends('layouts.main') 
 @section('content')
 
 <div class="container">
@@ -21,14 +21,13 @@
                    
                    <thead>
                    
-                    <th>ID</th>
+                   <th>ID</th>
                    <th>Resort ID</th>
                     <th>Email</th>
                      <th>Phone</th>
                      <th>Members</th>
                      <th>Start Date</th>
-                      <th>End Date</th>
-                      
+                     <th>End Date</th>                    
                    </thead>
     <tbody>
     

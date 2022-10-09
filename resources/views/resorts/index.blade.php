@@ -1,4 +1,4 @@
-@extends('layout') 
+@extends('layouts.main') 
 @section('content')
 
 <h1 class="display-3 text-center my-3">All Resorts</h1>
@@ -12,7 +12,8 @@
     @if (session('status'))
     <h6 class="alert alert-success mt-3">{{ session('status') }}</h6>
     
-@endif
+    @endif
+
     <div class="rentals " style="display:flex;flex-flow:row;justify-content:start ;flex-wrap:wrap"> 
        
         
@@ -29,7 +30,7 @@
             <h5>{{ $item['name'] }}</h5>
             <strong class="card-text ">{{ $item['rent_per_day'] }}</strong>           
         </div>
-    </a>
+        </a>
    
         </div>
 

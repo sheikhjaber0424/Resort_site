@@ -1,4 +1,4 @@
-@extends('layout') 
+@extends('layouts.main') 
 @section('content')
 
 <div class="container">
@@ -33,24 +33,23 @@
     <tbody>
     
 
- @foreach ($resorts as $item)
+ @foreach ($resorts as $resort)
      
    
     <tr>
-    
-  
-    <td>{{ $item['id'] }}</td>
-    <td>{{ $item['name'] }}</td>
-    <td>{{ $item['rent_per_day'] }}</td>
-    <td>{{ $item['description'] }}</td>
-    <td><img class="card-img-top " src="{{ asset('uploads/resorts/'.$item['gallery']) }}" alt="Card image cap" height="80"> </td>
-    <td> <a href="/admin/edit/{{ $item['id'] }} "><button class="btn btn-primary mt-4"><i class="bi bi-pencil-square"></i></button></a></td>
-    <td><form class="d-inline" action="/delete/{{ $item['id'] }}" method="POST">
-        @csrf
-        @method('DELETE')
 
-        <a href="/delete/{{ $item['id'] }}"><button class="btn btn-danger mt-4"><i class="bi bi-trash-fill"></i></button></a>
-    </form></td>
+    <td>{{ $resort['id'] }}</td>
+    <td>{{ $resort['name'] }}</td>
+    <td>{{ $resort['rent_per_day'] }}</td>
+    <td>{{ $resort['description'] }}</td>
+    <td><img class="card-img-top " src="{{ asset('uploads/resorts/'.$resort['gallery']) }}" alt="Card image cap" height="80"> </td>
+    <td> <a href="{{ route('resorts.edit',$resort->id) }}"><button class="btn btn-primary mt-4"><i class="bi bi-pencil-square"></i></button></a></td>
+    <td>
+        <form class="d-inline" action="{{ route('resorts.destroy',$resort->id) }}" method="POST"> 
+        @csrf
+        @method('DELETE')        
+        <button type="submit" class="btn btn-danger mt-4"><i class="bi bi-trash-fill"></i></button>
+    </td>
     </tr>
     
 
@@ -71,6 +70,4 @@
 </div>
 
 
-
-
-    @endsection
+@endsection

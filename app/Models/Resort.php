@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Resort extends Model
 {
-    protected $fillable = ['name','rent_per_day','description','gallery'];
+    protected $guarded = [];
     use HasFactory;
 }
