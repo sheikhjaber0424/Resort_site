@@ -6,9 +6,7 @@
         
         <div class="col-lg-6">
 
-            @if (session('status'))
-            <h6 class="alert alert-success">{{ session('status') }}</h6>
-        @endif
+           
     <form action='/resorts' method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group mb-3">

@@ -17,8 +17,8 @@ class ResortController extends Controller
    
     public function index()
     {
-        $data = Resort::paginate(8);
-        return view('resorts.index',['resorts'=>$data]);
+        $resorts = Resort::paginate(8);
+        return view('resorts.index',compact('resorts'));
     }
 
 
@@ -27,143 +27,10 @@ class ResortController extends Controller
 
     public function detail($id)
     {
-        $detail = Resort::find($id);
-        return view('resorts.detail',['resort'=>$detail]);
-    }
-   
-
-
-
-
-    public function addResort()
-    {
-
-        return view('admin.resort_add');
-        
-    }
-
-
-
-
-
-    public function  resortData()
-    {
-        $data = Resort::paginate(5);
-        return view(' admin.resorts_data_table',['resorts'=>$data]);
-        
-    }
-   
-
-
-
-
-    public function store(Request $request)
-    {
-
-        $request->validate([
-            'name' => ['required', 'string', 'max:25'],
-            'rent_per_day' => ['required', 'integer'],
-            'description' => ['required', 'max:255'],
-            'gallery' => ['required', 'image']
-        ]);
-   
-
-        $resort = new Resort;
-        $resort->name = $request->input('name');
-        $resort->rent_per_day = $request->input('rent_per_day');
-        $resort->description = $request->input('description');
-        
-        if($request->hasfile('gallery'))
-        {
-            $file = $request->file('gallery');
-            $extention = $file->getClientOriginalExtension();
-            $filename = time().'.'.$extention;
-            $file->move('uploads/resorts/', $filename);
-            $resort->gallery = $filename;
-        } 
-        $resort->save();
-        return redirect()->back()->with('status','Resort Added Successfully');
-    }
-
-    
-
-
-
-
-    public function edit($id)
-    {
         $resort = Resort::find($id);
-        return view('admin.resort_edit',['resort'=>$resort]);
+        return view('resorts.detail',compact('resort'));
     }
- 
-  
-
-
-
-
-
-    public function update(Request $request, $id)
-    {
-        
-        $request->validate([
-            'name' => ['required', 'string', 'max:25'],
-            'rent_per_day' => ['required', 'integer'],
-            'description' => ['required', 'max:255'],
-            'gallery' => ['required', 'image']
-        ]);
-
-        $resort = Resort::find($id);
-        $resort->name = $request->input('name');
-        $resort->rent_per_day = $request->input('rent_per_day');
-        $resort->description = $request->input('description');
-        
-        if($request->hasfile('gallery'))
-        {
-            $destination = 'uploads/resorts/'.$resort->gallery;
-            if(File::exists($destination))
-            {
-                File::delete($destination);
-            }
-            $file = $request->file('gallery');
-            $extention = $file->getClientOriginalExtension();
-            $filename = time().'.'.$extention;
-            $file->move('uploads/resorts/', $filename);
-            $resort->gallery = $filename;
-        } 
-        $resort->update();
-        return redirect()->back()->with('status','Resort updated Successfully');
-    }
-
-  
-
-
-
-
-
-    public function destroy($id)
-    {
-       $resort = Resort::find($id);
-       $destination = 'uploads/resorts/'.$resort->gallery;
-       if(File::exists($destination))
-       {
-            File::delete($destination);
-       }
-       $resort->delete();
-
-       return redirect()->back()->with('status','Resort deleted Successfully');
-    }
-
-
-
-
-
-
-
-
-    public function admin()
-    {
-        return view('adminpage');
-    }
+   
 
 
 
@@ -191,7 +58,7 @@ class ResortController extends Controller
     public function booking($id,Request $request)
     {
         $resort = Resort::find($id);
-        return view('resorts.booking',['resort'=>$resort]);
+        return view('resorts.booking',compact('resort'));
         
     }
 
@@ -287,13 +154,13 @@ public function  bookingList()
 public function searchData(Request $request)
 {
     
-     $data= Resort::where('name', 'like','%'.$request->input('query').'%')
+     $resorts= Resort::where('name', 'like','%'.$request->input('query').'%')
                         ->orWhere('rent_per_day', 'like','%'.$request->input('query').'%')
                         ->orWhere('description', 'like','%'.$request->input('query').'%')
                         ->get();
                         
     //  dd($data);
-   return view('admin.search_resort',['resorts'=>$data]);
+   return view('admin.search_resort',compact('resorts'));
 }
 
 

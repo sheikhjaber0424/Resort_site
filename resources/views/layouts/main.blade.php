@@ -23,9 +23,13 @@
     </head>
 <body>
     @include('header')
+
     @if(Auth::check())
     @include('partials.admin_page')
     @endif
+    
+    @include('partials.alert')
+    <br>
     @yield('content')
 </body>
 

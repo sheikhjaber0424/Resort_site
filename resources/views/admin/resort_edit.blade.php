@@ -6,9 +6,7 @@
       
       <div class="col-lg-6">
 
-          @if (session('status'))
-          <h6 class="alert alert-success">{{ session('status') }}</h6>
-      @endif
+          
   <form action='{{ route('resorts.update', $resort) }}' method="POST" enctype="multipart/form-data">  
       @csrf
       @method('PUT')

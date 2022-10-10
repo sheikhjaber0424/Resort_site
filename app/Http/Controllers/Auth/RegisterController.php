@@ -31,7 +31,7 @@ class RegisterController extends Controller
      */
     protected function redirectTo()
     {
-        return ('/');
+        return ('/resorts');
     }
 
     /**

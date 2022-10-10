@@ -46,13 +46,13 @@ class AdminController extends Controller
             $valid['gallery'] = $filename;
         } 
        
+        if(Resort::create($valid))
+            return redirect()->back()->with('success','Resort Added Successfully');
 
-        Resort::create($valid);
-
-        return redirect()->back()->with('status','Resort Added Successfully');
+        return back()->with('error','There is something wrong');
     }
 
-
+    
 
 
     public function show(Resort $resort)
@@ -95,9 +95,12 @@ class AdminController extends Controller
             $valid['gallery'] = $filename;
         } 
 
-        $resort->update($valid);
+       
 
-        return redirect()->back()->with('status','Resort updated Successfully');
+        if( $resort->update($valid))
+            return redirect()->back()->with('success','Resort updated Successfully');
+
+        return back()->with('error','There is something wrong');
     }
 
   
@@ -111,7 +114,11 @@ class AdminController extends Controller
              File::delete($destination);
         }
         
+      
         if ($resort->delete())
-        return back()->with('success', 'Book Deleted Successfully');
+            return redirect()->back()->with('success','Resort deleted Successfully');
+
+        return back()->with('error','There is something wrong');
+        
     }
 }
